@@ -3,7 +3,7 @@
 Aplicación iOS nativa para gestionar tu colección personal de mangas.
 
 ![Swift](https://img.shields.io/badge/Swift-6.2-orange.svg)
-![iOS](https://img.shields.io/badge/iOS-18.0+-blue.svg)
+![iOS](https://img.shields.io/badge/iOS-26.0+-blue.svg)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-Native-green.svg)
 
 ## 📖 Descripción
