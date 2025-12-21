@@ -21,7 +21,7 @@ final class UserMangaCollection {
     var mainPicture: String
     var totalVolumes: Int?
     
-    // MARK: - Datos de la colección del usuario (REQUISITOS OBLIGATORIOS)
+    // MARK: - Datos de la colección del usuario
     var volumesOwned: Int
     var readingVolume: Int?
     var completeCollection: Bool

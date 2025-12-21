@@ -8,7 +8,7 @@
 import Foundation
 
 struct PaginatedResponse<T: Codable>: Codable {
-    let data: [T]
+    let items: [T]
     let metadata: Metadata
     
     struct Metadata: Codable {

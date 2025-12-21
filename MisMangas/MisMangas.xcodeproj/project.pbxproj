@@ -19,6 +19,14 @@
 		A0C2918F2EF8084600938CB5 /* UserMangaCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2918E2EF8084200938CB5 /* UserMangaCollection.swift */; };
 		A0C291912EF808E300938CB5 /* PreviewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C291902EF808E000938CB5 /* PreviewData.swift */; };
 		A0C291932EF80A2C00938CB5 /* PreviewContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C291922EF80A2A00938CB5 /* PreviewContainer.swift */; };
+		A0C291952EF814D000938CB5 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C291942EF814CC00938CB5 /* NetworkError.swift */; };
+		A0C291972EF8151200938CB5 /* NetworkInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C291962EF8150F00938CB5 /* NetworkInteractor.swift */; };
+		A0C291992EF8154A00938CB5 /* URLRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C291982EF8154A00938CB5 /* URLRequest.swift */; };
+		A0C2919B2EF8159000938CB5 /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2919A2EF8158D00938CB5 /* URLSession.swift */; };
+		A0C2919E2EF815BE00938CB5 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2919D2EF815BA00938CB5 /* UIImage.swift */; };
+		A0C291A02EF815E300938CB5 /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C2919F2EF815E100938CB5 /* ImageDownloader.swift */; };
+		A0C291A22EF815FF00938CB5 /* URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C291A12EF815FE00938CB5 /* URL.swift */; };
+		A0C291A42EF8162D00938CB5 /* NetworkRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C291A32EF8162900938CB5 /* NetworkRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +43,14 @@
 		A0C2918E2EF8084200938CB5 /* UserMangaCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserMangaCollection.swift; sourceTree = "<group>"; };
 		A0C291902EF808E000938CB5 /* PreviewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewData.swift; sourceTree = "<group>"; };
 		A0C291922EF80A2A00938CB5 /* PreviewContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewContainer.swift; sourceTree = "<group>"; };
+		A0C291942EF814CC00938CB5 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		A0C291962EF8150F00938CB5 /* NetworkInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInteractor.swift; sourceTree = "<group>"; };
+		A0C291982EF8154A00938CB5 /* URLRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLRequest.swift; sourceTree = "<group>"; };
+		A0C2919A2EF8158D00938CB5 /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
+		A0C2919D2EF815BA00938CB5 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		A0C2919F2EF815E100938CB5 /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		A0C291A12EF815FE00938CB5 /* URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URL.swift; sourceTree = "<group>"; };
+		A0C291A32EF8162900938CB5 /* NetworkRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +99,14 @@
 		A01859742EF6B433007EF68A /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				A0C291A32EF8162900938CB5 /* NetworkRepository.swift */,
+				A0C291A12EF815FE00938CB5 /* URL.swift */,
+				A0C2919F2EF815E100938CB5 /* ImageDownloader.swift */,
+				A0C2919D2EF815BA00938CB5 /* UIImage.swift */,
+				A0C2919A2EF8158D00938CB5 /* URLSession.swift */,
+				A0C291982EF8154A00938CB5 /* URLRequest.swift */,
+				A0C291962EF8150F00938CB5 /* NetworkInteractor.swift */,
+				A0C291942EF814CC00938CB5 /* NetworkError.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -205,13 +229,21 @@
 			files = (
 				A0C291932EF80A2C00938CB5 /* PreviewContainer.swift in Sources */,
 				A0C291912EF808E300938CB5 /* PreviewData.swift in Sources */,
+				A0C2919B2EF8159000938CB5 /* URLSession.swift in Sources */,
+				A0C291992EF8154A00938CB5 /* URLRequest.swift in Sources */,
+				A0C291A42EF8162D00938CB5 /* NetworkRepository.swift in Sources */,
 				A0C291852EF8075D00938CB5 /* AuthorDTO.swift in Sources */,
 				A0C2918F2EF8084600938CB5 /* UserMangaCollection.swift in Sources */,
+				A0C291972EF8151200938CB5 /* NetworkInteractor.swift in Sources */,
 				A0C291872EF8078000938CB5 /* GenreDTO.swift in Sources */,
 				A01859722EF6B42B007EF68A /* ContentView.swift in Sources */,
+				A0C2919E2EF815BE00938CB5 /* UIImage.swift in Sources */,
+				A0C291A02EF815E300938CB5 /* ImageDownloader.swift in Sources */,
 				A0C2918B2EF807B800938CB5 /* DemographicDTO.swift in Sources */,
+				A0C291A22EF815FF00938CB5 /* URL.swift in Sources */,
 				A0C291892EF807A400938CB5 /* ThemeDTO.swift in Sources */,
 				A0C291832EF8070100938CB5 /* MangaDTO.swift in Sources */,
+				A0C291952EF814D000938CB5 /* NetworkError.swift in Sources */,
 				A0C2918D2EF807D300938CB5 /* PaginatedResponse.swift in Sources */,
 				A01859732EF6B42B007EF68A /* MisMangasApp.swift in Sources */,
 			);
