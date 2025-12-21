@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct MisMangasApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainTab()
         }
+        .modelContainer(for: UserMangaCollection.self)
     }
 }
