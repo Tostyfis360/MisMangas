@@ -20,6 +20,9 @@ struct MainTab: View {
                     .foregroundStyle(.secondary)
             }
         }
+        .tabBarMinimizeBehavior(.onScrollDown)
+        .tabViewStyle(.sidebarAdaptable)
+        .defaultAdaptableTabBarPlacement(.tabBar)
     }
 }
 

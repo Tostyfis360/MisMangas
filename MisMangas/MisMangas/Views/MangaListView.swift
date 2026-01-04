@@ -44,9 +44,12 @@ struct MangaListView: View {
                 }
             }
             .toolbarRole(.editor)
-            .refreshable {
-                await vm.loadInitialData()
+            .navigationDestination(for: MangaDTO.self) { manga in
+                MangaDetailView(manga: manga, namespace: namespace)
             }
+        }
+        .refreshable {
+            await vm.loadInitialData()
         }
         .task {
             if vm.mangas.isEmpty {
