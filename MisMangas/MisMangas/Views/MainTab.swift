@@ -15,9 +15,7 @@ struct MainTab: View {
             }
             
             Tab("Mi Colección", systemImage: "book.closed") {
-                Text("Próximamente...")
-                    .font(.title)
-                    .foregroundStyle(.secondary)
+                CollectionView()
             }
         }
         .tabBarMinimizeBehavior(.onScrollDown)

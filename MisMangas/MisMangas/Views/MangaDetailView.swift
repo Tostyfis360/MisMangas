@@ -310,35 +310,6 @@ struct FlowLayout: Layout {
     }
 }
 
-// MARK: - Temporary Add Sheet (SPRINT 6)
-struct AddToCollectionSheet: View {
-    let manga: MangaDTO
-    @Environment(\.dismiss) private var dismiss
-
-    var body: some View {
-        NavigationStack {
-            VStack {
-                Text("Formulario para añadir a colección")
-                    .font(.title2)
-                Text("(Implementaremos en SPRINT 6)")
-                    .foregroundStyle(.secondary)
-
-                Spacer()
-            }
-            .padding()
-            .navigationTitle("Añadir a colección")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancelar") {
-                        dismiss()
-                    }
-                }
-            }
-        }
-    }
-}
-
 #Preview {
     @Previewable @Namespace var namespace
     NavigationStack {
@@ -346,3 +317,4 @@ struct AddToCollectionSheet: View {
     }
     .modelContainer(for: UserMangaCollection.self, inMemory: true)
 }
+
