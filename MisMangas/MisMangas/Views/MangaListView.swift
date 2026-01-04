@@ -40,7 +40,7 @@ struct MangaListView: View {
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
-                    genreMenu
+                    filterMenu
                 }
             }
             .toolbarRole(.editor)
@@ -107,41 +107,86 @@ struct MangaListView: View {
                 }
         }
     }
-    
-    // MARK: - Genre Filter Menu
-    private var genreMenu: some View {
+
+    // MARK: - Filter Menu
+    private var filterMenu: some View {
         Menu {
-            Button {
-                Task {
-                    await vm.filterByGenre(nil)
-                }
-            } label: {
-                HStack {
-                    Text("Todos")
-                    Spacer()
-                    if vm.selectedGenre == nil {
-                        Image(systemName: "checkmark")
-                    }
-                }
-            }
-            
-            Divider()
-            
-            ForEach(vm.genres, id: \.self) { genre in
-                Button {
+            // Botón para limpiar todos los filtros
+            if vm.selectedGenre != nil || vm.selectedDemographic != nil || vm.selectedTheme != nil {
+                Button(role: .destructive) {
                     Task {
-                        await vm.filterByGenre(genre)
+                        await vm.clearFilters()
                     }
                 } label: {
-                    HStack {
-                        Text(genre)
-                        Spacer()
-                        if vm.selectedGenre == genre {
-                            Image(systemName: "checkmark")
+                    Label("Limpiar filtros", systemImage: "xmark.circle")
+                }
+                
+                Divider()
+            }
+            
+            // SECCIÓN: Géneros
+            Menu {
+                ForEach(vm.genres, id: \.self) { genre in
+                    Button {
+                        Task {
+                            await vm.filterByGenre(genre)
+                        }
+                    } label: {
+                        HStack {
+                            Text(genre)
+                            Spacer()
+                            if vm.selectedGenre == genre {
+                                Image(systemName: "checkmark")
+                            }
                         }
                     }
                 }
+            } label: {
+                Label("Género", systemImage: "star.fill")
             }
+            
+            // SECCIÓN: Demographics
+            Menu {
+                ForEach(vm.demographics, id: \.self) { demographic in
+                    Button {
+                        Task {
+                            await vm.filterByDemographic(demographic)
+                        }
+                    } label: {
+                        HStack {
+                            Text(demographic)
+                            Spacer()
+                            if vm.selectedDemographic == demographic {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+                }
+            } label: {
+                Label("Demografía", systemImage: "person.2.fill")
+            }
+            
+            // SECCIÓN: Themes
+            Menu {
+                ForEach(vm.themes, id: \.self) { theme in
+                    Button {
+                        Task {
+                            await vm.filterByTheme(theme)
+                        }
+                    } label: {
+                        HStack {
+                            Text(theme)
+                            Spacer()
+                            if vm.selectedTheme == theme {
+                                Image(systemName: "checkmark")
+                            }
+                        }
+                    }
+                }
+            } label: {
+                Label("Tema", systemImage: "tag.fill")
+            }
+            
         } label: {
             Image(systemName: "line.3.horizontal.decrease.circle")
         }
