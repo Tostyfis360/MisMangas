@@ -121,6 +121,10 @@ struct AddToCollectionSheet: View {
                     }
                 }
             }
+            .scrollDismissesKeyboard(.interactively)
+            .onTapGesture {
+                hideKeyboard()
+            }
             .navigationTitle(isEditing ? "Editar colección" : "Añadir a colección")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -146,7 +150,7 @@ struct AddToCollectionSheet: View {
             }
         }
     }
-    
+
     // MARK: - Progress View
     private func progressView(current: Int, total: Int, label: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -240,6 +244,23 @@ struct AddToCollectionSheet: View {
         } catch {
             errorMessage = "Error al guardar: \(error.localizedDescription)"
             showError = true
+        }
+    }
+
+    // MARK: - Helper
+    private func hideKeyboard() {
+        UIApplication.shared.sendAction(
+            #selector(UIResponder.resignFirstResponder),
+            to: nil,
+            from: nil,
+            for: nil)
+    }
+}
+
+extension View {
+    func hideKeyboardOnTap() -> some View {
+        self.onTapGesture {
+            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
     }
 }

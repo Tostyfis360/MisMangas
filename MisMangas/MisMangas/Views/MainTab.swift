@@ -17,6 +17,9 @@ struct MainTab: View {
             Tab("Mi Colección", systemImage: "book.closed") {
                 CollectionView()
             }
+            Tab("Buscar", systemImage: "magnifyingglass", role: .search) {
+                SearchView()
+            }
         }
         .tabBarMinimizeBehavior(.onScrollDown)
         .tabViewStyle(.sidebarAdaptable)
