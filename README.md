@@ -26,7 +26,7 @@ App que permite explorar más de 64,000 mangas, filtrar por género/demografía/
 - **Persistencia:** SwiftData
 - **Networking:** URLSession + async/await
 - **Arquitectura:** MVVM + Repository Pattern
-- **Plataformas:** iOS 18.0+, iPadOS 18.0+
+- **Plataformas:** iOS 26.0+, iPadOS 26.0+
 
 ## 📁 Estructura
 
