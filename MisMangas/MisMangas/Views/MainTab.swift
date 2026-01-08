@@ -11,13 +11,13 @@ struct MainTab: View {
     var body: some View {
         TabView {
             Tab("Catálogo", systemImage: "books.vertical") {
-                MangaListView()
+                NewMangaListView()
             }
             
             Tab("Mi Colección", systemImage: "book.closed") {
                 CollectionView()
             }
-            Tab("Buscar", systemImage: "magnifyingglass", role: .search) {
+            Tab("Explorar", systemImage: "magnifyingglass", role: .search) {
                 SearchView()
             }
         }

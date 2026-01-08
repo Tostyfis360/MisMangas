@@ -5,7 +5,6 @@
 //  Created by Juan Ferrera Sala on 8/1/26.
 //
 
-// SearchVM.swift
 import SwiftUI
 
 @Observable @MainActor
