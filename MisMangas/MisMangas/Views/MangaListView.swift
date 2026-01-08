@@ -45,7 +45,7 @@ struct MangaListView: View {
             }
             .toolbarRole(.editor)
             .navigationDestination(for: MangaDTO.self) { manga in
-                MangaDetailView(manga: manga, namespace: namespace)
+                NewMangaDetailView(manga: manga, namespace: namespace)
             }
         }
         .refreshable {

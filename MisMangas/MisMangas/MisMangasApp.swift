@@ -13,6 +13,7 @@ struct MisMangasApp: App {
     var body: some Scene {
         WindowGroup {
             MainTab()
+                .preferredColorScheme(.dark)
         }
         .modelContainer(for: UserMangaCollection.self)
     }
