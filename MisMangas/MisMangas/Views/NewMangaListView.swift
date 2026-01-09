@@ -12,7 +12,7 @@ struct NewMangaListView: View {
     @State private var vm = MangaListVM()
     @Namespace private var namespace
     @Query private var userCollection: [UserMangaCollection]
-    
+
     var body: some View {
         NavigationStack {
             ScrollView {
@@ -57,9 +57,6 @@ struct NewMangaListView: View {
                     Text("Mangas")
                         .font(.title3)
                         .bold()
-                }
-                ToolbarItem(placement: .topBarTrailing) {
-                    filterMenu
                 }
             }
             .toolbarRole(.editor)
@@ -133,86 +130,6 @@ struct NewMangaListView: View {
             rows.append(("Comedy", Array(comedyMangas.prefix(10))))
         }
         return rows
-    }
-    // MARK: - Filter Menu
-    private var filterMenu: some View {
-        Menu {
-            // Botón para limpiar todos los filtros
-            if vm.selectedGenre != nil || vm.selectedDemographic != nil || vm.selectedTheme != nil {
-                Button(role: .destructive) {
-                    Task {
-                        await vm.clearFilters()
-                    }
-                } label: {
-                    Label("Limpiar filtros", systemImage: "xmark.circle")
-                }
-                
-                Divider()
-            }
-            // SECCIÓN: Géneros
-            Menu {
-                ForEach(vm.genres, id: \.self) { genre in
-                    Button {
-                        Task {
-                            await vm.filterByGenre(genre)
-                        }
-                    } label: {
-                        HStack {
-                            Text(genre)
-                            Spacer()
-                            if vm.selectedGenre == genre {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
-                }
-            } label: {
-                Label("Género", systemImage: "star.fill")
-            }
-            
-            // SECCIÓN: Demographics
-            Menu {
-                ForEach(vm.demographics, id: \.self) { demographic in
-                    Button {
-                        Task {
-                            await vm.filterByDemographic(demographic)
-                        }
-                    } label: {
-                        HStack {
-                            Text(demographic)
-                            Spacer()
-                            if vm.selectedDemographic == demographic {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
-                }
-            } label: {
-                Label("Demografía", systemImage: "person.2.fill")
-            }
-            // SECCIÓN: Themes
-            Menu {
-                ForEach(vm.themes, id: \.self) { theme in
-                    Button {
-                        Task {
-                            await vm.filterByTheme(theme)
-                        }
-                    } label: {
-                        HStack {
-                            Text(theme)
-                            Spacer()
-                            if vm.selectedTheme == theme {
-                                Image(systemName: "checkmark")
-                            }
-                        }
-                    }
-                }
-            } label: {
-                Label("Tema", systemImage: "tag.fill")
-            }
-        } label: {
-            Image(systemName: "line.3.horizontal.decrease.circle")
-        }
     }
 }
 

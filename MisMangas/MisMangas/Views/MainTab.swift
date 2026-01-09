@@ -18,7 +18,7 @@ struct MainTab: View {
                 CollectionView()
             }
             Tab("Explorar", systemImage: "magnifyingglass", role: .search) {
-                SearchView()
+                ExploreView()
             }
         }
         .tabBarMinimizeBehavior(.onScrollDown)
