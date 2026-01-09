@@ -10,36 +10,29 @@ import SwiftData
 
 struct AddToCollectionSheet: View {
     let manga: MangaDTO
-    
     @Environment(\.dismiss) private var dismiss
     @Environment(\.modelContext) private var modelContext
     @Query private var userCollection: [UserMangaCollection]
-    
     // Estados del formulario
     @State private var volumesOwned: Int
     @State private var readingVolume: String = ""
     @State private var completeCollection: Bool = false
-    
     // Control de errores
     @State private var showError = false
     @State private var errorMessage = ""
-    
     // Verificar si ya existe en la colección
     private var existingEntry: UserMangaCollection? {
         userCollection.first { $0.mangaId == manga.id }
     }
-    
     private var isEditing: Bool {
         existingEntry != nil
     }
-    
     // Inicializador
     init(manga: MangaDTO) {
         self.manga = manga
         // Inicializar con 0 por defecto
         _volumesOwned = State(initialValue: 0)
     }
-    
     var body: some View {
         NavigationStack {
             Form {
@@ -61,7 +54,6 @@ struct AddToCollectionSheet: View {
                             Text(manga.title)
                                 .font(.headline)
                                 .lineLimit(2)
-                            
                             if let volumes = manga.volumes {
                                 Text("\(volumes) volúmenes")
                                     .font(.caption)
@@ -72,7 +64,6 @@ struct AddToCollectionSheet: View {
                 } header: {
                     Text("Manga")
                 }
-                
                 // MARK: - Campos del Formulario
                 Section {
                     // Número de tomos comprados
@@ -85,8 +76,7 @@ struct AddToCollectionSheet: View {
                                 .bold()
                         }
                     }
-                    
-                    // Tomo por el que va leyendo
+                    // Tomo por el que va leyendo el usuario
                     HStack {
                         Text("Tomo leyendo")
                         Spacer()
@@ -95,7 +85,6 @@ struct AddToCollectionSheet: View {
                             .multilineTextAlignment(.trailing)
                             .frame(width: 80)
                     }
-                    
                     // Colección completa
                     Toggle("Colección completa", isOn: $completeCollection)
                         .onChange(of: completeCollection) { _, newValue in
@@ -103,13 +92,11 @@ struct AddToCollectionSheet: View {
                                 volumesOwned = totalVolumes
                             }
                         }
-                    
                 } header: {
                     Text("Datos de tu colección")
                 } footer: {
                     Text("Número de tomos que posees y por cuál vas leyendo actualmente.")
                 }
-                
                 // MARK: - Información Adicional
                 if let volumes = manga.volumes {
                     Section {
@@ -133,7 +120,6 @@ struct AddToCollectionSheet: View {
                         dismiss()
                     }
                 }
-                
                 ToolbarItem(placement: .confirmationAction) {
                     Button(isEditing ? "Actualizar" : "Guardar") {
                         saveToCollection()
@@ -150,7 +136,6 @@ struct AddToCollectionSheet: View {
             }
         }
     }
-
     // MARK: - Progress View
     private func progressView(current: Int, total: Int, label: String) -> some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -168,7 +153,6 @@ struct AddToCollectionSheet: View {
                 .tint(current == total ? .green : .blue)
         }
     }
-    
     // MARK: - Load Existing Data
     private func loadExistingData() {
         if let existing = existingEntry {
@@ -179,7 +163,6 @@ struct AddToCollectionSheet: View {
             completeCollection = existing.completeCollection
         }
     }
-    
     // MARK: - Save to Collection
     private func saveToCollection() {
         // Validaciones
@@ -188,7 +171,6 @@ struct AddToCollectionSheet: View {
             showError = true
             return
         }
-        
         // Validar tomo de lectura
         let readingVolumeInt: Int?
         if readingVolume.isEmpty {
@@ -199,24 +181,20 @@ struct AddToCollectionSheet: View {
                 showError = true
                 return
             }
-            
             // Validar que no exceda el total de volúmenes
             if let totalVolumes = manga.volumes, reading > totalVolumes {
                 errorMessage = "El tomo de lectura no puede ser mayor que \(totalVolumes)"
                 showError = true
                 return
             }
-            
             // Validar que no exceda los tomos comprados
             if reading > volumesOwned {
                 errorMessage = "No puedes estar leyendo un tomo que no tienes comprado"
                 showError = true
                 return
             }
-            
             readingVolumeInt = reading
         }
-        
         // Guardar o actualizar
         if let existing = existingEntry {
             // Actualizar existente
@@ -236,7 +214,6 @@ struct AddToCollectionSheet: View {
                 completeCollection: completeCollection)
             modelContext.insert(newEntry)
         }
-
         // Guardar cambios
         do {
             try modelContext.save()

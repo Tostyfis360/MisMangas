@@ -10,11 +10,10 @@ import SwiftUI
 struct ExploreView: View {
     @State private var vm = ExploreVM()
     @Namespace private var namespace
-    
+
     // Grid columns
     private let gridColumns = [
-        GridItem(.adaptive(minimum: isiPhone ? 110 : 180), spacing: 16)
-    ]
+        GridItem(.adaptive(minimum: isiPhone ? 110 : 180), spacing: 16)]
 
     var body: some View {
         NavigationStack {
@@ -127,7 +126,7 @@ struct ExploreView: View {
                 }
                 Divider()
             }
-            
+
             // SECCIÓN: Géneros
             Menu {
                 ForEach(vm.genres, id: \.self) { genre in
@@ -190,7 +189,7 @@ struct ExploreView: View {
             } label: {
                 Label("Tema", systemImage: "tag.fill")
             }
-            
+
         } label: {
             Image(systemName: "line.3.horizontal.decrease.circle")
         }

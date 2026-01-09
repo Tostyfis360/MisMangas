@@ -11,17 +11,16 @@ import SwiftData
 struct CollectionView: View {
     @Query(sort: \UserMangaCollection.dateAdded, order: .reverse)
     private var userCollection: [UserMangaCollection]
-    
+
     @Environment(\.modelContext) private var modelContext
     @State private var selectedManga: UserMangaCollection?
     @State private var showingEditSheet = false
     @State private var mangaToEdit: MangaDTO?
-    
+
     // Grid para iPad
     private let gridColumns = [
-        GridItem(.adaptive(minimum: 300), spacing: 16)
-    ]
-    
+        GridItem(.adaptive(minimum: 300), spacing: 16)]
+
     var body: some View {
         NavigationStack {
             Group {
@@ -45,7 +44,7 @@ struct CollectionView: View {
             AddToCollectionSheet(manga: manga)
         }
     }
-    
+
     // MARK: - Collection List
     @ViewBuilder
     private var collectionList: some View {
@@ -65,7 +64,7 @@ struct CollectionView: View {
             }
         }
     }
-    
+
     // MARK: - Collection Items
     @ViewBuilder
     private var collectionItems: some View {
@@ -96,7 +95,7 @@ struct CollectionView: View {
                 }
         }
     }
-    
+
     // MARK: - Empty State
     private var emptyStateView: some View {
         ContentUnavailableView {
@@ -105,7 +104,7 @@ struct CollectionView: View {
             Text("Añade mangas a tu colección desde el catálogo")
         }
     }
-    
+
     // MARK: - Edit Manga
     private func editManga(_ manga: UserMangaCollection) {
         // Crear un MangaDTO básico para el sheet
@@ -128,12 +127,10 @@ struct CollectionView: View {
             authors: [],
             genres: [],
             themes: [],
-            demographics: []
-        )
-        
+            demographics: [])
         mangaToEdit = mangaDTO
     }
-    
+
     // MARK: - Delete Manga
     private func deleteManga(_ manga: UserMangaCollection) {
         modelContext.delete(manga)

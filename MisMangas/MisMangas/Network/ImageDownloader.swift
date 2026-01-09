@@ -14,9 +14,9 @@ actor ImageDownloader {
         case downloading(task: Task<UIImage, any Error>)
         case downloaded(image: UIImage)
     }
-    
+
     private var cache: [URL: ImageStatus] = [:]
-    
+
     private func getImage(url: URL) async throws -> UIImage {
         let (data, _) = try await URLSession.shared.data(from: url)
         if let image = UIImage(data: data) {
@@ -25,7 +25,7 @@ actor ImageDownloader {
             throw URLError(.badServerResponse)
         }
     }
-    
+
     func image(for url: URL) async throws -> UIImage {
         if let status = cache[url] {
             return switch status {
@@ -35,13 +35,13 @@ actor ImageDownloader {
                 image
             }
         }
-        
+
         let task = Task {
             try await getImage(url: url)
         }
-        
+
         cache[url] = .downloading(task: task)
-        
+
         do {
             let image = try await task.value
             cache[url] = .downloaded(image: image)
@@ -52,7 +52,7 @@ actor ImageDownloader {
             throw error
         }
     }
-    
+
     func saveImage(url: URL) async throws {
         guard let imageCached = cache[url],
               case .downloaded(let image) = imageCached else { return }
@@ -63,7 +63,7 @@ actor ImageDownloader {
             cache.removeValue(forKey: url)
         }
     }
-    
+
     nonisolated func getFileURL(url: URL) -> URL {
         URL.cachesDirectory.appending(path: url.lastPathComponent)
     }

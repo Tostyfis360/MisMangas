@@ -6,27 +6,42 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct MainTab: View {
+    @State private var isLoading = true
+    
     var body: some View {
-        TabView {
-            Tab("Catálogo", systemImage: "books.vertical") {
-                NewMangaListView()
+        ZStack {
+            // App principal
+            TabView {
+                Tab("Inicio", systemImage: "house.fill") {
+                    NewMangaListView(onDataLoaded: {
+                        withAnimation(.easeOut(duration: 0.5)) {
+                            isLoading = false
+                        }
+                    })
+                }
+                Tab("Mi Colección", systemImage: "book.closed") {
+                    CollectionView()
+                }
+                Tab("Explorar", systemImage: "magnifyingglass", role: .search) {
+                    ExploreView()
+                }
             }
-            
-            Tab("Mi Colección", systemImage: "book.closed") {
-                CollectionView()
-            }
-            Tab("Explorar", systemImage: "magnifyingglass", role: .search) {
-                ExploreView()
+            .tabBarMinimizeBehavior(.onScrollDown)
+            .tabViewStyle(.sidebarAdaptable)
+            .defaultAdaptableTabBarPlacement(.tabBar)
+            .opacity(isLoading ? 0 : 1)
+            // Loading overlay
+            if isLoading {
+                LoadingView()
+                    .transition(.opacity)
             }
         }
-        .tabBarMinimizeBehavior(.onScrollDown)
-        .tabViewStyle(.sidebarAdaptable)
-        .defaultAdaptableTabBarPlacement(.tabBar)
     }
 }
 
 #Preview {
-    MainTab()
+    MainTab().modelContainer(for: UserMangaCollection.self, inMemory: true)
 }

@@ -10,27 +10,27 @@ import SwiftUI
 @Observable
 final class ExploreVM {
     let network = NetworkRepository()
-    
+
     // Datos principales
     var mangas: [MangaDTO] = []
     var genres: [String] = []
     var demographics: [String] = []
     var themes: [String] = []
-    
+
     // Búsqueda
     var search = ""
     var searchResults: [MangaDTO] = []
-    
+
     // Filtros
     var selectedGenre: String?
     var selectedDemographic: String?
     var selectedTheme: String?
-    
+
     // Paginación
     private var currentPage = 1
     private let itemsPerPage = 20
     var canLoadMore = true
-    
+
     // MARK: - Display Mangas
     var displayMangas: [MangaDTO] {
         // Si está buscando, muestra resultados de la búsqueda
@@ -40,12 +40,12 @@ final class ExploreVM {
         // Si no, muestra el catálogo con o sin los filtros
         return mangas
     }
-    
+
     // MARK: - Load Initial Data
     func loadInitialData() async {
         currentPage = 1
         mangas = []
-        
+
         do {
             let mangasResult = try await network.fetchMangas(page: currentPage, per: itemsPerPage)
             let genresResult = try await network.fetchGenres()
@@ -62,7 +62,7 @@ final class ExploreVM {
             print(error)
         }
     }
-    
+
     // MARK: - Load Next Page
     func loadNextPage() async {
         guard canLoadMore, search.isEmpty else { return }
@@ -86,7 +86,7 @@ final class ExploreVM {
             currentPage -= 1
         }
     }
-    
+
     // MARK: - Search
     func findMangas() async {
         do {
@@ -111,7 +111,7 @@ final class ExploreVM {
         selectedDemographic = demographic
         await reloadMangas()
     }
-    
+
     // MARK: - Filter by Theme
     func filterByTheme(_ theme: String?) async {
         selectedGenre = nil

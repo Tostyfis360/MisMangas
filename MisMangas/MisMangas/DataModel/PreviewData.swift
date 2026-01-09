@@ -28,9 +28,8 @@ extension MangaDTO {
         authors: [AuthorDTO.akira],
         genres: [GenreDTO.action],
         themes: [ThemeDTO.martialArts],
-        demographics: [DemographicDTO.shounen]
-    )
-    
+        demographics: [DemographicDTO.shounen])
+
     @MainActor static let onePiece = MangaDTO(
         id: 13,
         title: "One Piece",
@@ -49,9 +48,8 @@ extension MangaDTO {
         authors: [AuthorDTO.oda],
         genres: [GenreDTO.action, GenreDTO.adventure],
         themes: [ThemeDTO.pirates],
-        demographics: [DemographicDTO.shounen]
-    )
-    
+        demographics: [DemographicDTO.shounen])
+
     @MainActor static let naruto = MangaDTO(
         id: 11,
         title: "Naruto",
@@ -70,14 +68,12 @@ extension MangaDTO {
         authors: [AuthorDTO.kishimoto],
         genres: [GenreDTO.action],
         themes: [ThemeDTO.martialArts],
-        demographics: [DemographicDTO.shounen]
-    )
-    
+        demographics: [DemographicDTO.shounen])
+
     @MainActor static let sampleMangas: [MangaDTO] = [
         dragonBall,
         onePiece,
-        naruto
-    ]
+        naruto]
 }
 
 // MARK: - AuthorDTO Preview Data
@@ -88,14 +84,14 @@ extension AuthorDTO {
         lastName: "Toriyama",
         role: "Story & Art"
     )
-    
+
     @MainActor static let oda = AuthorDTO(
         id: "F6396B2F-8C1A-4F48-9308-E88F3C1B3C8E",
         firstName: "Eiichiro",
         lastName: "Oda",
         role: "Story & Art"
     )
-    
+
     @MainActor static let kishimoto = AuthorDTO(
         id: "A3C5E8D9-7B4F-4E2A-9F1D-2C8A6B5D4E3F",
         firstName: "Masashi",
@@ -108,34 +104,29 @@ extension AuthorDTO {
 extension GenreDTO {
     @MainActor static let action = GenreDTO(
         id: "72C8E862-334F-4F00-B8EC-E1E4125BB7CD",
-        genre: "Action"
-    )
-    
+        genre: "Action")
+
     @MainActor static let adventure = GenreDTO(
         id: "A2D3E4F5-1234-5678-90AB-CDEF12345678",
-        genre: "Adventure"
-    )
+        genre: "Adventure")
 }
 
 // MARK: - ThemeDTO Preview Data
 extension ThemeDTO {
     @MainActor static let martialArts = ThemeDTO(
         id: "ADC7CBC8-36B9-4E52-924A-4272B7B2CB2C",
-        theme: "Martial Arts"
-    )
-    
+        theme: "Martial Arts")
+
     @MainActor static let pirates = ThemeDTO(
         id: "B3E4F5A6-5678-90AB-CDEF-123456789ABC",
-        theme: "Pirates"
-    )
+        theme: "Pirates")
 }
 
 // MARK: - DemographicDTO Preview Data
 extension DemographicDTO {
     @MainActor static let shounen = DemographicDTO(
         id: "5E05BBF1-A72E-4231-9487-71CFE508F9F9",
-        demographic: "Shounen"
-    )
+        demographic: "Shounen")
 }
 
 // MARK: - UserMangaCollection Preview Data
@@ -149,7 +140,7 @@ extension UserMangaCollection {
         readingVolume: 25,
         completeCollection: false
     )
-    
+
     @MainActor static let onePieceCollection = UserMangaCollection(
         mangaId: 13,
         title: "One Piece",
@@ -159,7 +150,7 @@ extension UserMangaCollection {
         readingVolume: 100,
         completeCollection: true
     )
-    
+
     @MainActor static let sampleCollections: [UserMangaCollection] = [
         dragonBallCollection,
         onePieceCollection

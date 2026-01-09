@@ -10,7 +10,7 @@ import SwiftUI
 struct CollectionCardView: View {
     let manga: UserMangaCollection
     @Namespace private var namespace
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             // Portada
@@ -40,7 +40,7 @@ struct CollectionCardView: View {
         .padding()
         .background(.thinMaterial, in: .rect(cornerRadius: 16))
     }
-    
+
     // MARK: - Stats Section
     private var statsSection: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -48,14 +48,14 @@ struct CollectionCardView: View {
                 Label("\(manga.volumesOwned)", systemImage: "book.fill")
                     .font(.caption)
                     .foregroundStyle(.blue)
-                
+
                 if let reading = manga.readingVolume {
                     Label("Leyendo: \(reading)", systemImage: "bookmark.fill")
                         .font(.caption)
                         .foregroundStyle(.orange)
                 }
             }
-            
+
             if manga.completeCollection {
                 Label("Colección completa", systemImage: "checkmark.circle.fill")
                     .font(.caption)
@@ -63,7 +63,7 @@ struct CollectionCardView: View {
             }
         }
     }
-    
+
     // MARK: - Progress Bar Section
     private func progressBarsSection(totalVolumes: Int) -> some View {
         VStack(spacing: 8) {
@@ -78,11 +78,11 @@ struct CollectionCardView: View {
                         .font(.caption2)
                         .foregroundStyle(.secondary)
                 }
-                
+
                 ProgressView(value: manga.collectionProgress ?? 0)
                     .tint(manga.completeCollection ? .green : .blue)
             }
-            
+    
             // Progreso de lectura
             if let readingProgress = manga.readingProgress, readingProgress > 0 {
                 VStack(alignment: .leading, spacing: 2) {

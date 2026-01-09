@@ -10,23 +10,23 @@ import SwiftUI
 struct MangaCardView: View {
     let manga: MangaDTO
     let namespace: Namespace.ID
-    
+
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             MangaCoverView(coverURL: manga.mainPicture, namespace: namespace)
-            
+
             VStack(alignment: .leading, spacing: 6) {
                 Text(manga.title)
                     .font(.headline)
                     .lineLimit(2)
-                
+
                 if !manga.authors.isEmpty {
                     Text(manga.authors.map { $0.fullName }.joined(separator: ", "))
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .lineLimit(1)
                 }
-                
+
                 if let synopsis = manga.sypnosis {
                     Text(synopsis)
                         .font(.caption)
@@ -34,9 +34,9 @@ struct MangaCardView: View {
                         .lineLimit(3)
                         .padding(.top, 2)
                 }
-                
+
                 Spacer()
-                
+
                 HStack {
                     if let score = manga.score {
                         HStack(spacing: 2) {
@@ -48,9 +48,9 @@ struct MangaCardView: View {
                                 .foregroundStyle(.secondary)
                         }
                     }
-                    
+
                     Spacer()
-                    
+
                     if let volumes = manga.volumes {
                         Text("\(volumes) vols")
                             .font(.caption)

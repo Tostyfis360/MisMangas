@@ -12,6 +12,7 @@ struct NewMangaListView: View {
     @State private var vm = MangaListVM()
     @Namespace private var namespace
     @Query private var userCollection: [UserMangaCollection]
+    var onDataLoaded: (() -> Void)?
 
     var body: some View {
         NavigationStack {
@@ -75,6 +76,7 @@ struct NewMangaListView: View {
         .task {
             if vm.mangas.isEmpty {
                 await vm.loadInitialData()
+                onDataLoaded?()
             }
         }
     }
@@ -87,7 +89,7 @@ struct NewMangaListView: View {
             .map { $0.mangaId }
         return vm.mangas.filter { unfinishedIds.contains($0.id) }
     }
-    
+
     // MARK: - Mejor Valorados
     private var topRatedMangas: [MangaDTO] {
         vm.mangas
@@ -96,7 +98,7 @@ struct NewMangaListView: View {
             .prefix(10)
             .map { $0 }
     }
-    
+
     // MARK: - Category Rows
     private var categoryRows: [(title: String, mangas: [MangaDTO])] {
         var rows: [(String, [MangaDTO])] = []

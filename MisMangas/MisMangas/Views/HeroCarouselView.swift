@@ -117,7 +117,7 @@ struct HeroCarouselView: View {
         }
         .padding(.horizontal)
     }
-    
+
     // MARK: - Page Indicators
     private var pageIndicators: some View {
         HStack(spacing: 8) {
@@ -129,7 +129,7 @@ struct HeroCarouselView: View {
             }
         }
     }
-    
+
     // MARK: - Auto Scroll
     private func startAutoScroll() {
         timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in

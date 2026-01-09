@@ -11,10 +11,10 @@ struct MangaCoverView: View {
     let coverURL: String?
     let namespace: Namespace.ID
     var big: Bool = false
-    
+
     @State private var image: UIImage?
     @State private var isLoading = false
-    
+
     var body: some View {
         Group {
             if let image {
@@ -37,7 +37,7 @@ struct MangaCoverView: View {
             await loadImage()
         }
     }
-    
+
     private var placeholder: some View {
         Image(systemName: "book.closed")
             .font(.largeTitle)
@@ -45,15 +45,15 @@ struct MangaCoverView: View {
             .frame(width: big ? 180 : 90, height: big ? 300 : 150)
             .background(.gray.opacity(0.3), in: .rect(cornerRadius: 11))
     }
-    
+
     private func loadImage() async {
         // Limpiar comillas si vienen en la URL
         guard let coverURL else { return }
         let cleanURL = coverURL.replacingOccurrences(of: "\"", with: "")
         guard let url = URL(string: cleanURL) else { return }
-        
+
         isLoading = true
-        
+
         // Verificar si está en caché de disco
         let fileURL = ImageDownloader.shared.getFileURL(url: url)
         if FileManager.default.fileExists(atPath: fileURL.path()) {
@@ -66,7 +66,7 @@ struct MangaCoverView: View {
                 print("Error loading cached image: \(error)")
             }
         }
-        
+
         // Descargar de la red
         do {
             let downloadedImage = try await ImageDownloader.shared.image(for: url)

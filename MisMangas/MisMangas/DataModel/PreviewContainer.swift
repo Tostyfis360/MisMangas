@@ -12,15 +12,15 @@ struct PreviewContainer: PreviewModifier {
     static func makeSharedContext() async throws -> ModelContainer {
         let configuration = ModelConfiguration(isStoredInMemoryOnly: true)
         let container = try ModelContainer(for: UserMangaCollection.self, configurations: configuration)
-        
+
         UserMangaCollection.sampleCollections.forEach { collection in
             container.mainContext.insert(collection)
         }
-        
+
         try container.mainContext.save()
         return container
     }
-    
+
     func body(content: Content, context: ModelContainer) -> some View {
         content
             .modelContainer(context)
