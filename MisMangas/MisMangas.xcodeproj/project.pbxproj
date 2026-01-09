@@ -18,6 +18,7 @@
 		A07858432F10FA79003A0603 /* CategoryGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07858422F10FA78003A0603 /* CategoryGridView.swift */; };
 		A07858452F10FAA3003A0603 /* CategoryGridVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07858442F10FAA2003A0603 /* CategoryGridVM.swift */; };
 		A07858472F1101E3003A0603 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07858462F1101DF003A0603 /* LoadingView.swift */; };
+		A078584D2F111516003A0603 /* MisMangas.icon in Resources */ = {isa = PBXBuildFile; fileRef = A078584C2F111516003A0603 /* MisMangas.icon */; };
 		A07DADA92F0FA0B600225D05 /* NewMangaDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07DADA82F0FA0B400225D05 /* NewMangaDetailView.swift */; };
 		A07DADAD2F0FB3AB00225D05 /* ExploreVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07DADAC2F0FB3A800225D05 /* ExploreVM.swift */; };
 		A07DADAF2F0FBAE400225D05 /* HeroCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A07DADAE2F0FBAE100225D05 /* HeroCarouselView.swift */; };
@@ -60,6 +61,7 @@
 		A07858422F10FA78003A0603 /* CategoryGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryGridView.swift; sourceTree = "<group>"; };
 		A07858442F10FAA2003A0603 /* CategoryGridVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryGridVM.swift; sourceTree = "<group>"; };
 		A07858462F1101DF003A0603 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		A078584C2F111516003A0603 /* MisMangas.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = MisMangas.icon; sourceTree = "<group>"; };
 		A07DADA82F0FA0B400225D05 /* NewMangaDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMangaDetailView.swift; sourceTree = "<group>"; };
 		A07DADAC2F0FB3A800225D05 /* ExploreVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreVM.swift; sourceTree = "<group>"; };
 		A07DADAE2F0FBAE100225D05 /* HeroCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeroCarouselView.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				A01859752EF6B453007EF68A /* Model */,
 				A01859742EF6B433007EF68A /* Network */,
 				A018596D2EF6B42B007EF68A /* Assets.xcassets */,
+				A078584C2F111516003A0603 /* MisMangas.icon */,
 				A018596F2EF6B42B007EF68A /* MisMangasApp.swift */,
 			);
 			path = MisMangas;
@@ -271,6 +274,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A01859712EF6B42B007EF68A /* Assets.xcassets in Resources */,
+				A078584D2F111516003A0603 /* MisMangas.icon in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,7 +450,7 @@
 		A018596B2EF6B41F007EF68A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = MisMangas;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -478,7 +482,7 @@
 		A018596C2EF6B41F007EF68A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = MisMangas;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
