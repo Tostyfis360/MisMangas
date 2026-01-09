@@ -11,21 +11,27 @@ struct MangaRowView: View {
     let title: String
     let mangas: [MangaDTO]
     let namespace: Namespace.ID
+    var isClickable: Bool = true
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             // Título de la sección
-            HStack {
-                Text(title)
-                    .font(.title2)
-                    .bold()
-                Spacer()
-                // Flecha opcional
-                Image(systemName: "chevron.right")
-                    .foregroundStyle(.secondary)
-                    .font(.subheadline)
+            if isClickable {
+                // Clickable con la propiedad NavigationLink
+                NavigationLink(value: CategoryNavigation(title: title, mangas: mangas)) {
+                    titleContent
+                }
+                .buttonStyle(.plain)
+            } else {
+                // No clickable sin la propiedad NavigationLink
+                HStack {
+                    Text(title)
+                        .font(.title2)
+                        .bold()
+                    Spacer()
+                }
+                .padding(.horizontal)
             }
-            .padding(.horizontal)
             // Scroll horizontal de portadas
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 16) {
@@ -43,6 +49,32 @@ struct MangaRowView: View {
                 .padding(.horizontal)
             }
         }
+    }
+    // MARK: - Title Content
+    private var titleContent: some View {
+        HStack {
+            Text(title)
+                .font(.title2)
+                .bold()
+                .foregroundStyle(.primary)
+            Spacer()
+            Image(systemName: "chevron.right")
+                .foregroundStyle(.secondary)
+                .font(.subheadline)
+        }
+        .padding(.horizontal)
+    }
+}
+
+// MARK: - Category Navigation
+struct CategoryNavigation: Hashable {
+    let title: String
+    let mangas: [MangaDTO]
+    
+    var filterType: CategoryFilterType {
+        // Determinar si el género o demografía por el título
+        let demographics = ["Shounen", "Seinen", "Shoujo", "Josei", "Kids"]
+        return demographics.contains(title) ? .demographic : .genre
     }
 }
 

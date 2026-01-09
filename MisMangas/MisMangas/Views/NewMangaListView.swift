@@ -29,14 +29,16 @@ struct NewMangaListView: View {
                             MangaRowView(
                                 title: "Continuar leyendo",
                                 mangas: continueReadingMangas,
-                                namespace: namespace)
+                                namespace: namespace,
+                                isClickable: false)
                         }
                         // MEJOR VALORADOS
                         if !topRatedMangas.isEmpty {
                             MangaRowView(
                                 title: "Mejor valorados",
                                 mangas: topRatedMangas,
-                                namespace: namespace)
+                                namespace: namespace,
+                                isClickable: false)
                         }
                         // CATEGORÍAS
                         ForEach(categoryRows, id: \.title) { row in
@@ -63,6 +65,11 @@ struct NewMangaListView: View {
             .toolbarBackground(.hidden, for: .navigationBar)
             .navigationDestination(for: MangaDTO.self) { manga in
                 NewMangaDetailView(manga: manga, namespace: namespace)
+            }
+            .navigationDestination(for: CategoryNavigation.self) { categoryNav in
+                CategoryGridView(
+                    category: categoryNav.title,
+                    filterType: categoryNav.filterType)
             }
         }
         .task {
