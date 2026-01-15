@@ -13,7 +13,9 @@ struct HeroCarouselView: View {
 
     @State private var currentIndex = 0
     @State private var timer: Timer?
-    private let heroHeight: CGFloat = 550
+    private var heroHeight: CGFloat {
+        isiPhone ? 600 : 700  // iPhone: 600pt , iPad: 700pt
+    }
 
     var body: some View {
         ZStack(alignment: .bottom) {

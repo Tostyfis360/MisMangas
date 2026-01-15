@@ -29,6 +29,7 @@ struct MainTab: View {
                     ExploreView()
                 }
             }
+            .tint(.primary)
             .tabBarMinimizeBehavior(.onScrollDown)
             .tabViewStyle(.sidebarAdaptable)
             .defaultAdaptableTabBarPlacement(.tabBar)

@@ -21,7 +21,7 @@ struct NewMangaListView: View {
                     // HERO CAROUSEL
                     if !vm.mangas.isEmpty {
                         HeroCarouselView(
-                            mangas: Array(vm.mangas.prefix(5)),
+                            mangas: Array(topRatedMangas.prefix(5)),
                             namespace: namespace)
                     }
                     VStack(spacing: 30) {
@@ -57,7 +57,7 @@ struct NewMangaListView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
-                    Text("Mangas")
+                    Text("Mis mangas")
                         .font(.title3)
                         .bold()
                 }

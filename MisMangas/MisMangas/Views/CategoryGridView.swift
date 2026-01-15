@@ -15,7 +15,7 @@ struct CategoryGridView: View {
     @Namespace private var namespace
 
     // Grid columns
-    private let gridColumns = [GridItem(.adaptive(minimum: isiPhone ? 110 : 180), spacing: 12)]
+    private let gridColumns = [GridItem(.adaptive(minimum: isiPhone ? 85 : 140), spacing: 12)]
 
     var body: some View {
         ScrollView {

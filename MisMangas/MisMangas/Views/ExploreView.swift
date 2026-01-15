@@ -13,7 +13,7 @@ struct ExploreView: View {
 
     // Grid columns
     private let gridColumns = [
-        GridItem(.adaptive(minimum: isiPhone ? 110 : 180), spacing: 16)]
+        GridItem(.adaptive(minimum: isiPhone ? 85 : 140), spacing: 16)]
 
     var body: some View {
         NavigationStack {

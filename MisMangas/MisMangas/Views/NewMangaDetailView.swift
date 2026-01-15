@@ -18,6 +18,11 @@ struct NewMangaDetailView: View {
     @State private var showingAddSheet = false
     @State private var isExpanded = false
 
+    // Altura del hero según dispositivo
+    private var heroHeight: CGFloat {
+        isiPhone ? 550 : 850  // iPhone: 550pt, iPad: 850pt
+    }
+
     private var isInCollection: Bool {
         userCollection.contains { $0.mangaId == manga.id }
     }
@@ -59,7 +64,7 @@ struct NewMangaDetailView: View {
                 Rectangle()
                     .fill(.gray.opacity(0.3))
             }
-            .frame(height: 500)
+            .frame(height: heroHeight)
             .frame(maxWidth: .infinity)
             .clipped()
 

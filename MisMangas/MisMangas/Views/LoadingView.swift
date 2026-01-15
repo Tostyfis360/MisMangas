@@ -16,7 +16,7 @@ struct LoadingView: View {
             VStack(spacing: 30) {
                 Image(systemName: "book.pages.fill")
                     .font(.system(size: 80))
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.white)
                     .symbolEffect(.bounce, options: .repeating.speed(1))
 
                 Text("MisMangas")
