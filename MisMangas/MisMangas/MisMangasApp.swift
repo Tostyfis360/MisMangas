@@ -10,10 +10,17 @@ import SwiftData
 
 @main
 struct MisMangasApp: App {
+    @State private var authManager = AuthManager.shared
     var body: some Scene {
         WindowGroup {
-            MainTab()
-                .preferredColorScheme(.dark)
+            Group {
+                if authManager.isAuthenticated {
+                    MainTab()
+                } else {
+                    LoginView()
+                }
+            }
+            .preferredColorScheme(.dark)
         }
         .modelContainer(for: UserMangaCollection.self)
     }

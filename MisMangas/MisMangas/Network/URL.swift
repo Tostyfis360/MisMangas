@@ -1,5 +1,5 @@
 //
-//  Untitled.swift
+//  Url.swift
 //  MisMangas
 //
 //  Created by Juan Ferrera Sala on 21/12/25.
@@ -73,5 +73,18 @@ extension URL {
             URLQueryItem(name: "page", value: "\(page)"),
             URLQueryItem(name: "per", value: "\(per)")]
         return url.appending(queryItems: queryItems)
+    }
+
+    // MARK: - Authentication Endpoints
+    static let createUser = mangaAPI.appending(path: "/users")
+    static let loginJWT = mangaAPI.appending(path: "/users/jwt/login")
+    static let getUserInfo = mangaAPI.appending(path: "/users/jwt/me")
+    static let refreshJWT = mangaAPI.appending(path: "/users/jwt/refresh")
+
+    // MARK: - Collection Endpoints
+    static let collection = mangaAPI.appending(path: "/collection/manga")
+
+    static func collectionManga(id: Int) -> URL {
+        mangaAPI.appending(path: "/collection/manga").appending(path: "\(id)")
     }
 }

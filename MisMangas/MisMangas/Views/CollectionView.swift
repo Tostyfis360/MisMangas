@@ -31,11 +31,14 @@ struct CollectionView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
+            .navigationTitle("Mi Colección")
             .toolbar {
-                ToolbarItem(placement: .principal) {
-                    Text("Mi Colección")
-                        .font(.title3)
-                        .bold()
+                ToolbarItem() {
+                    Button {
+                        AuthManager.shared.logout()
+                    } label: {
+                        Label("Cerrar sesión", systemImage: "rectangle.portrait.and.arrow.right")
+                    }
                 }
             }
             .toolbarRole(.editor)

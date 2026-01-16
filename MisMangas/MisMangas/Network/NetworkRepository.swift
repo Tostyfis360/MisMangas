@@ -57,4 +57,39 @@ struct NetworkRepository: NetworkInteractor {
     func fetchManga(byID id: Int) async throws(NetworkError) -> MangaDTO {
         try await getJSON(.get(url: .mangaByID(id)), type: MangaDTO.self)
     }
+
+    // MARK: - Authentication
+    func createUser(request: CreateUserRequest) async throws(NetworkError) {
+        try await postVoid(.post(url: .createUser), body: request)
+    }
+
+    func loginJWT(email: String, password: String) async throws(NetworkError) -> JWTResponse {
+        try await postJSON(.post(url: .loginJWT, email: email, password: password), type: JWTResponse.self)
+    }
+
+    func getUserInfo(token: String) async throws(NetworkError) -> UserInfo {
+        var request = URLRequest.get(url: .getUserInfo)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return try await getJSON(request, type: UserInfo.self)
+    }
+
+    func refreshJWT(token: String) async throws(NetworkError) -> JWTResponse {
+        try await postJSON(.post(url: .refreshJWT, token: token), type: JWTResponse.self)
+    }
+
+    // MARK: - Collection
+    func addToCollection(token: String, mangaId: Int, data: CollectionUpdateRequest) async throws(NetworkError) {
+        let body = CollectionRequest(mangaId: mangaId, data: data)
+        try await postVoid(.post(url: .collection, token: token), body: body)
+    }
+
+    func getCollection(token: String) async throws(NetworkError) -> [CloudMangaCollection] {
+        var request = URLRequest.get(url: .collection)
+        request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+        return try await getJSON(request, type: [CloudMangaCollection].self)
+    }
+
+    func deleteFromCollection(token: String, mangaId: Int) async throws(NetworkError) {
+        try await deleteVoid(.delete(url: .collectionManga(id: mangaId), token: token))
+    }
 }
