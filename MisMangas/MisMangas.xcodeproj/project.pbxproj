@@ -49,6 +49,7 @@
 		A0C291AA2EF81F5200938CB5 /* MangaListVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C291A92EF81F4E00938CB5 /* MangaListVM.swift */; };
 		A0C291B02EF81F7700938CB5 /* MangaCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C291AF2EF81F7400938CB5 /* MangaCoverView.swift */; };
 		A0C291B42EF822CA00938CB5 /* MainTab.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0C291B32EF822C900938CB5 /* MainTab.swift */; };
+		A0CCE9902F1A90F100563F26 /* SyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0CCE98F2F1A90E900563F26 /* SyncManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +96,7 @@
 		A0C291A92EF81F4E00938CB5 /* MangaListVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaListVM.swift; sourceTree = "<group>"; };
 		A0C291AF2EF81F7400938CB5 /* MangaCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MangaCoverView.swift; sourceTree = "<group>"; };
 		A0C291B32EF822C900938CB5 /* MainTab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTab.swift; sourceTree = "<group>"; };
+		A0CCE98F2F1A90E900563F26 /* SyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 		A083C7692F1A7B090043228E /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				A0CCE98F2F1A90E900563F26 /* SyncManager.swift */,
 				A083C76A2F1A7B250043228E /* AuthManager.swift */,
 			);
 			path = Managers;
@@ -340,6 +343,7 @@
 				A07DADB32F0FBE7A00225D05 /* NewMangaListView.swift in Sources */,
 				A083C76D2F1A7F670043228E /* CollectionModels.swift in Sources */,
 				A0C291A22EF815FF00938CB5 /* URL.swift in Sources */,
+				A0CCE9902F1A90F100563F26 /* SyncManager.swift in Sources */,
 				A0C291892EF807A400938CB5 /* ThemeDTO.swift in Sources */,
 				A0C291832EF8070100938CB5 /* MangaDTO.swift in Sources */,
 				A05450BD2F0A931B00F88D1D /* CollectionCardView.swift in Sources */,

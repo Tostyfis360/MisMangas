@@ -35,56 +35,24 @@ final class AuthManager {
     }
 
     // MARK: - Register
-//    func register(email: String, password: String) async throws {
-//        do {
-//            // Validar datos
-//            guard !email.isEmpty, !password.isEmpty else {
-//                throw AuthError.invalidCredentials
-//            }
-//
-//            guard password.count >= 8 else {
-//                throw AuthError.invalidCredentials
-//            }
-//
-//            // Crear usuario en la API
-//            let request = CreateUserRequest(email: email, password: password)
-//            try await network.createUser(request: request)
-//
-//            // Después de crear, se hace un login automático
-//            try await login(email: email, password: password)
-//            
-//        } catch {
-//            print("❌ Error en register: \(error)")
-//            throw error
-//        }
-//    }
-    
     func register(email: String, password: String) async throws {
         do {
-            print("🔵 Intentando registrar usuario...")
-            print("📧 Email: \(email)")
-            print("🔑 Password length: \(password.count)")
-            
+            // Validar datos
             guard !email.isEmpty, !password.isEmpty else {
-                print("❌ Email o password vacíos")
                 throw AuthError.invalidCredentials
             }
-            
+
             guard password.count >= 8 else {
-                print("❌ Password muy corto (mínimo 8)")
                 throw AuthError.invalidCredentials
             }
-            
+
+            // Crear usuario en la API
             let request = CreateUserRequest(email: email, password: password)
-            print("📤 Enviando request a la API...")
-            
             try await network.createUser(request: request)
-            
-            print("✅ Usuario creado exitosamente")
-            print("🔄 Haciendo login automático...")
-            
+
+            // Después de crear, se hace un login automático
             try await login(email: email, password: password)
-            
+
         } catch {
             print("❌ Error en register: \(error)")
             throw error
@@ -113,7 +81,6 @@ final class AuthManager {
 
             // Cargar info del usuario
             await loadUserInfo()
-
             print("✅ Login exitoso")
 
         } catch {
@@ -134,10 +101,8 @@ final class AuthManager {
 
             // Obtener la info del user desde la API
             let userInfo = try await network.getUserInfo(token: token)
-
             currentUser = userInfo
             isAuthenticated = true
-
             print("✅ Usuario cargado: \(userInfo.email)")
 
         } catch {
@@ -156,15 +121,13 @@ final class AuthManager {
 
             // Renovar el token en la API
             let jwtResponse = try await network.refreshJWT(token: oldToken)
-
             // Guardar el nuevo token
             let success = KeychainHelper.saveToken(jwtResponse.token)
+
             guard success else {
                 throw AuthError.networkError
             }
-
             print("✅ Token renovado")
-
         } catch {
             print("❌ Error renovando token: \(error)")
             // Si falla, hacer logout
@@ -177,11 +140,9 @@ final class AuthManager {
     func logout() {
         // Eliminar token del Keychain
         _ = KeychainHelper.deleteToken()
-
         // Limpiar estado
         isAuthenticated = false
         currentUser = nil
-
         print("✅ Logout exitoso")
     }
 }

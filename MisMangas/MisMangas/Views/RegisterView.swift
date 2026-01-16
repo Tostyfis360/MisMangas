@@ -20,10 +20,10 @@ struct RegisterView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: 30) {
-                    // Logo o icono
+                    // Icono
                     Image(systemName: "person.crop.circle.badge.plus")
                         .font(.system(size: 80))
-                        .foregroundStyle(.blue)
+                        .foregroundStyle(.white)
                         .padding(.top, 40)
 
                     Text("Crear cuenta")
@@ -100,7 +100,6 @@ struct RegisterView: View {
                             .font(.subheadline)
                             .foregroundStyle(.blue)
                     }
-
                     Spacer()
                 }
             }
@@ -147,8 +146,7 @@ private func hideKeyboard() {
         #selector(UIResponder.resignFirstResponder),
         to: nil,
         from: nil,
-        for: nil
-    )
+        for: nil)
 }
 
 #Preview {

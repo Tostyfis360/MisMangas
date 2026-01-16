@@ -17,10 +17,10 @@ struct LoginView: View {
     var body: some View {
         NavigationStack {
             VStack(spacing: 30) {
-                // Logo o icono
+                // Icono
                 Image(systemName: "book.pages.fill")
                     .font(.system(size: 80))
-                    .foregroundStyle(.blue)
+                    .foregroundStyle(.white)
                     .padding(.top, 60)
 
                 Text("MisMangas")
@@ -82,7 +82,7 @@ struct LoginView: View {
             }
         }
     }
-    
+
     // MARK: - Login
     private func login() async {
         do {
@@ -100,8 +100,7 @@ private func hideKeyboard() {
         #selector(UIResponder.resignFirstResponder),
         to: nil,
         from: nil,
-        for: nil
-    )
+        for: nil)
 }
 
 #Preview {

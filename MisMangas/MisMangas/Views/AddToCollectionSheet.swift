@@ -20,6 +20,8 @@ struct AddToCollectionSheet: View {
     // Control de errores
     @State private var showError = false
     @State private var errorMessage = ""
+    // Manager para sincronizar
+    @State private var syncManager = SyncManager()
     // Verificar si ya existe en la colección
     private var existingEntry: UserMangaCollection? {
         userCollection.first { $0.mangaId == manga.id }
@@ -217,6 +219,24 @@ struct AddToCollectionSheet: View {
         // Guardar cambios
         do {
             try modelContext.save()
+
+            // Sincroniza con la nube si está autenticado
+            if AuthManager.shared.isAuthenticated {
+                Task {
+                    if let savedManga = existingEntry {
+                        await syncManager.syncUp(manga: savedManga)
+                    } else {
+                        // Buscar el manga recién creado
+                        let mangaId = manga.id
+                        let descriptor = FetchDescriptor<UserMangaCollection>(
+                            predicate: #Predicate { $0.mangaId == mangaId }
+                        )
+                        if let newManga = try? modelContext.fetch(descriptor).first {
+                            await syncManager.syncUp(manga: newManga)
+                        }
+                    }
+                }
+            }
             dismiss()
         } catch {
             errorMessage = "Error al guardar: \(error.localizedDescription)"

@@ -17,6 +17,9 @@ struct CollectionView: View {
     @State private var showingEditSheet = false
     @State private var mangaToEdit: MangaDTO?
 
+    // Manager para sincronizar
+    @State private var syncManager = SyncManager()
+
     // Grid para iPad
     private let gridColumns = [
         GridItem(.adaptive(minimum: 300), spacing: 16)]
@@ -35,6 +38,13 @@ struct CollectionView: View {
             .toolbar {
                 ToolbarItem() {
                     Button {
+                        // Limpiar colección en local
+                        for manga in userCollection {
+                            modelContext.delete(manga)
+                        }
+                        try? modelContext.save()
+
+                        // Logout
                         AuthManager.shared.logout()
                     } label: {
                         Label("Cerrar sesión", systemImage: "rectangle.portrait.and.arrow.right")
@@ -136,10 +146,21 @@ struct CollectionView: View {
 
     // MARK: - Delete Manga
     private func deleteManga(_ manga: UserMangaCollection) {
+        let mangaId = manga.mangaId
+
+        // Eliminar de local
         modelContext.delete(manga)
-        
+
         do {
             try modelContext.save()
+
+            // Eliminar de la nube si está autenticado
+            if AuthManager.shared.isAuthenticated {
+                Task {
+                    await syncManager.deleteFromCloud(mangaId: mangaId)
+                }
+            }
+
         } catch {
             print("Error al eliminar: \(error)")
         }

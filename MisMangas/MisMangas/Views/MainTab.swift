@@ -10,6 +10,9 @@ import SwiftData
 
 struct MainTab: View {
     @State private var isLoading = true
+    @State private var syncManager = SyncManager()
+
+    @Environment(\.modelContext) private var modelContext
     
     var body: some View {
         ZStack {
@@ -39,6 +42,10 @@ struct MainTab: View {
                 LoadingView()
                     .transition(.opacity)
             }
+        }
+        .task {
+            // Sincronizar colección al entrar
+            await syncManager.syncDown(modelContext: modelContext)
         }
     }
 }

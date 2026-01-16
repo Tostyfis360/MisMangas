@@ -78,8 +78,12 @@ struct NetworkRepository: NetworkInteractor {
     }
 
     // MARK: - Collection
-    func addToCollection(token: String, mangaId: Int, data: CollectionUpdateRequest) async throws(NetworkError) {
-        let body = CollectionRequest(mangaId: mangaId, data: data)
+    func addToCollection(token: String, mangaId: Int, volumesOwned: [Int], readingVolume: Int?, completeCollection: Bool) async throws(NetworkError) {
+        let body = CollectionRequest(
+            manga: mangaId,
+            completeCollection: completeCollection,
+            volumesOwned: volumesOwned,
+            readingVolume: readingVolume)
         try await postVoid(.post(url: .collection, token: token), body: body)
     }
 
