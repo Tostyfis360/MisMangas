@@ -51,15 +51,24 @@ struct AddToCollectionSheet: View {
                         }
                         .frame(width: 60, height: 90)
                         .clipShape(RoundedRectangle(cornerRadius: 8))
-                        
+
                         VStack(alignment: .leading, spacing: 4) {
                             Text(manga.title)
                                 .font(.headline)
                                 .lineLimit(2)
+
+                            // Info de los volúmenes o el estado
                             if let volumes = manga.volumes {
                                 Text("\(volumes) volúmenes")
                                     .font(.caption)
                                     .foregroundStyle(.secondary)
+                            } else if manga.status.lowercased() == "currently_publishing" {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "antenna.radiowaves.left.and.right")
+                                    Text("En emisión")
+                                }
+                                .font(.caption)
+                                .foregroundStyle(.orange)
                             }
                         }
                     }
@@ -87,17 +96,25 @@ struct AddToCollectionSheet: View {
                             .multilineTextAlignment(.trailing)
                             .frame(width: 80)
                     }
-                    // Colección completa
-                    Toggle("Colección completa", isOn: $completeCollection)
-                        .onChange(of: completeCollection) { _, newValue in
-                            if newValue, let totalVolumes = manga.volumes {
-                                volumesOwned = totalVolumes
+                    // Colección completa, solo si el manga esta terminado
+                    if manga.volumes != nil {
+                        Toggle("Colección completa", isOn: $completeCollection)
+                            .tint(.green)
+                            .onChange(of: completeCollection) { _, newValue in
+                                if newValue, let totalVolumes = manga.volumes {
+                                    volumesOwned = totalVolumes
+                                }
                             }
-                        }
+                    }
                 } header: {
                     Text("Datos de tu colección")
                 } footer: {
-                    Text("Número de tomos que posees y por cuál vas leyendo actualmente.")
+                    // Footer dinámico según si está en emisión
+                    if manga.volumes != nil {
+                        Text("Número de tomos que posees y por cuál vas leyendo actualmente.")
+                    } else {
+                        Text("Este manga está en emisión. Indica cuántos tomos tienes hasta ahora.")
+                    }
                 }
                 // MARK: - Información Adicional
                 if let volumes = manga.volumes {
@@ -211,7 +228,7 @@ struct AddToCollectionSheet: View {
                 totalVolumes: manga.volumes,
                 volumesOwned: volumesOwned,
                 readingVolume: readingVolumeInt,
-                completeCollection: completeCollection)
+                completeCollection: manga.volumes != nil ? completeCollection : false)
             modelContext.insert(newEntry)
         }
         // Guardar cambios
