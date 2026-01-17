@@ -21,34 +21,42 @@ struct CollectionView: View {
     @State private var syncManager = SyncManager()
 
     // Grid para iPad
-    private let gridColumns = [
-        GridItem(.adaptive(minimum: 300), spacing: 16)]
+    private let gridColumns = [GridItem(.adaptive(minimum: 300), spacing: 16)]
+
+    // Info del usuario
+    private var userEmail: String {
+        AuthManager.shared.currentUser?.email ?? "Usuario"
+    }
+
+    // Iniciales para el avatar
+    private var userInitials: String {
+        let email = userEmail
+        return String(email.prefix(1).uppercased())
+    }
 
     var body: some View {
         NavigationStack {
-            Group {
-                if userCollection.isEmpty {
-                    emptyStateView
-                } else {
-                    collectionList
+            ScrollView {
+                VStack(spacing: 24) {
+                    // Header con perfil
+                    profileHeader
+
+                    // Colección
+                    if userCollection.isEmpty {
+                        emptyStateView
+                            .padding(.top, 60)
+                    } else {
+                        collectionGrid
+                    }
                 }
+                .safeAreaPadding()
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationTitle("Mi Colección")
             .toolbar {
-                ToolbarItem() {
-                    Button {
-                        // Limpiar colección en local
-                        for manga in userCollection {
-                            modelContext.delete(manga)
-                        }
-                        try? modelContext.save()
-
-                        // Logout
-                        AuthManager.shared.logout()
-                    } label: {
-                        Label("Cerrar sesión", systemImage: "rectangle.portrait.and.arrow.right")
-                    }
+                ToolbarItem(placement: .principal) {
+                    Text("Mi Colección")
+                        .font(.title3)
+                        .bold()
                 }
             }
             .toolbarRole(.editor)
@@ -59,22 +67,9 @@ struct CollectionView: View {
     }
 
     // MARK: - Collection List
-    @ViewBuilder
-    private var collectionList: some View {
-        ScrollView {
-            if isiPhone {
-                // iPhone: Lista vertical
-                LazyVStack(spacing: 12) {
-                    collectionItems
-                }
-                .safeAreaPadding()
-            } else {
-                // iPad: Grid
-                LazyVGrid(columns: gridColumns, spacing: 16) {
-                    collectionItems
-                }
-                .safeAreaPadding()
-            }
+    private var collectionGrid: some View {
+        LazyVGrid(columns: isiPhone ? [GridItem(.flexible(), spacing: 16)] : [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)], spacing: 16) {
+            collectionItems
         }
     }
 
@@ -99,7 +94,6 @@ struct CollectionView: View {
                     } label: {
                         Label("Editar", systemImage: "pencil")
                     }
-                    
                     Button(role: .destructive) {
                         deleteManga(manga)
                     } label: {
@@ -116,6 +110,46 @@ struct CollectionView: View {
         } description: {
             Text("Añade mangas a tu colección desde el catálogo")
         }
+    }
+
+    // MARK: - Profile Header
+    private var profileHeader: some View {
+        HStack(spacing: 16) {
+            // Avatar con las iniciales
+            ZStack {
+                Circle()
+                    .fill(LinearGradient(
+                            colors: [.blue, .purple],
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing))
+                    .frame(width: 60, height: 60)
+                Text(userInitials)
+                    .font(.title2)
+                    .bold()
+                    .foregroundStyle(.white)
+            }
+            // Info del usuario
+            VStack(alignment: .leading, spacing: 4) {
+                Text(userEmail)
+                    .font(.headline)
+                Text("\(userCollection.count) mangas en colección")
+                    .font(.subheadline)
+                    .foregroundStyle(.secondary)
+            }
+            Spacer()
+            // Botón de logout
+            Button {
+                logoutBtn()
+            } label: {
+                Image(systemName: "rectangle.portrait.and.arrow.right")
+                    .font(.title3)
+                    .foregroundStyle(.red)
+                    .padding(12)
+                    .background(.thinMaterial, in: Circle())
+            }
+        }
+        .padding()
+        .background(.ultraThinMaterial, in: .rect(cornerRadius: 16))
     }
 
     // MARK: - Edit Manga
@@ -164,6 +198,17 @@ struct CollectionView: View {
         } catch {
             print("Error al eliminar: \(error)")
         }
+    }
+
+    // MARK: - Logout
+    private func logoutBtn() {
+        // Limpiar colección en local
+        for manga in userCollection {
+            modelContext.delete(manga)
+        }
+        try? modelContext.save()
+        // Logout
+        AuthManager.shared.logout()
     }
 }
 
