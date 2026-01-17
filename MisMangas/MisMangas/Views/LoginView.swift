@@ -69,9 +69,7 @@ struct LoginView: View {
                 }
                 Spacer()
             }
-            .onTapGesture {
-                hideKeyboard()
-            }
+            .dismissKeyboardOnTap()
             .alert("Error", isPresented: $showError) {
                 Button("OK", role: .cancel) { }
             } message: {
@@ -92,15 +90,6 @@ struct LoginView: View {
             showError = true
         }
     }
-}
-
-// MARK: - Helper
-private func hideKeyboard() {
-    UIApplication.shared.sendAction(
-        #selector(UIResponder.resignFirstResponder),
-        to: nil,
-        from: nil,
-        for: nil)
 }
 
 #Preview {

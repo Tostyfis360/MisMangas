@@ -13,6 +13,7 @@ final class AuthManager {
     // MARK: - Properties
     var isAuthenticated = false
     var currentUser: UserInfo?
+    var isCheckingAuth = true
 
     private let network = NetworkRepository()
 
@@ -26,11 +27,11 @@ final class AuthManager {
 
     // MARK: - Check Authentication
     func checkAuthentication() {
-        if KeychainHelper.getToken() != nil {
-            // Hay token guardado, entonces verificar si es válido
-            Task {
+        Task {
+            if KeychainHelper.getToken() != nil {
                 await loadUserInfo()
             }
+            isCheckingAuth = false
         }
     }
 
@@ -78,6 +79,8 @@ final class AuthManager {
 
             // Marcar como autenticado
             isAuthenticated = true
+            // Ya no estamos en estado de verificación, tras tener el login existoso
+            isCheckingAuth = false
 
             // Cargar info del usuario
             await loadUserInfo()
@@ -87,6 +90,7 @@ final class AuthManager {
             print("❌ Error en login: \(error)")
             isAuthenticated = false
             currentUser = nil
+            isCheckingAuth = false
             throw error
         }
     }
@@ -143,6 +147,7 @@ final class AuthManager {
         // Limpiar estado
         isAuthenticated = false
         currentUser = nil
+        isCheckingAuth = false
         print("✅ Logout exitoso")
     }
 }

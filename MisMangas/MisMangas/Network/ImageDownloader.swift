@@ -56,6 +56,7 @@ actor ImageDownloader {
     func saveImage(url: URL) async throws {
         guard let imageCached = cache[url],
               case .downloaded(let image) = imageCached else { return }
+
         if let resized = await image.resize(width: 300),
            let data = resized.pngData() {
             try data.write(to: getFileURL(url: url),

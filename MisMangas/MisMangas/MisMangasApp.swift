@@ -10,11 +10,16 @@ import SwiftData
 
 @main
 struct MisMangasApp: App {
+    init() {
+        FileManagerHelper.ensureAppDirectoriesExist()
+    }
     @State private var authManager = AuthManager.shared
     var body: some Scene {
         WindowGroup {
             Group {
-                if authManager.isAuthenticated {
+                if authManager.isCheckingAuth {
+                    LoadingView()
+                } else if authManager.isAuthenticated {
                     MainTab()
                 } else {
                     LoginView()

@@ -111,9 +111,7 @@ struct AddToCollectionSheet: View {
                 }
             }
             .scrollDismissesKeyboard(.interactively)
-            .onTapGesture {
-                hideKeyboard()
-            }
+            .dismissKeyboardOnTap()
             .navigationTitle(isEditing ? "Editar colección" : "Añadir a colección")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
@@ -241,23 +239,6 @@ struct AddToCollectionSheet: View {
         } catch {
             errorMessage = "Error al guardar: \(error.localizedDescription)"
             showError = true
-        }
-    }
-
-    // MARK: - Helper
-    private func hideKeyboard() {
-        UIApplication.shared.sendAction(
-            #selector(UIResponder.resignFirstResponder),
-            to: nil,
-            from: nil,
-            for: nil)
-    }
-}
-
-extension View {
-    func hideKeyboardOnTap() -> some View {
-        self.onTapGesture {
-            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         }
     }
 }
