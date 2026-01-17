@@ -20,8 +20,10 @@ struct CollectionView: View {
     // Manager para sincronizar
     @State private var syncManager = SyncManager()
 
+    @State private var showLogoutConfirmation = false
+
     // Grid para iPad
-    private let gridColumns = [GridItem(.adaptive(minimum: 300), spacing: 16)]
+    private let gridColumns = [GridItem(.adaptive(minimum: isiPhone ? 300 : 280), spacing: 16)]
 
     // Info del usuario
     private var userEmail: String {
@@ -64,11 +66,21 @@ struct CollectionView: View {
         .sheet(item: $mangaToEdit) { manga in
             AddToCollectionSheet(manga: manga)
         }
+        .alert(
+            "¿Cerrar sesión?",
+            isPresented: $showLogoutConfirmation) {
+            Button("Cancelar", role: .cancel) { }
+            Button("Cerrar sesión", role: .destructive) {
+                logoutBtn()
+            }
+        } message: {
+            Text("Se eliminarán todos los datos locales de tu colección")
+        }
     }
 
     // MARK: - Collection List
     private var collectionGrid: some View {
-        LazyVGrid(columns: isiPhone ? [GridItem(.flexible(), spacing: 16)] : [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)], spacing: 16) {
+        LazyVGrid(columns: gridColumns, spacing: 16) {
             collectionItems
         }
     }
@@ -139,7 +151,7 @@ struct CollectionView: View {
             Spacer()
             // Botón de logout
             Button {
-                logoutBtn()
+                showLogoutConfirmation = true
             } label: {
                 Image(systemName: "rectangle.portrait.and.arrow.right")
                     .font(.title3)
