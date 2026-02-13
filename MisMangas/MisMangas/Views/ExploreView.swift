@@ -121,7 +121,7 @@ struct ExploreView: View {
             if vm.selectedGenre != nil || vm.selectedDemographic != nil || vm.selectedTheme != nil {
                 Button(role: .destructive) {
                     Task {
-                        await vm.clearFilters()
+                        await vm.applyFilter(.none)
                     }
                 } label: {
                     Label("Limpiar filtros", systemImage: "xmark.circle")
@@ -134,7 +134,7 @@ struct ExploreView: View {
                 ForEach(vm.genres, id: \.self) { genre in
                     Button {
                         Task {
-                            await vm.filterByGenre(genre)
+                            await vm.applyFilter(.genre(genre))
                         }
                     } label: {
                         HStack {
@@ -155,7 +155,7 @@ struct ExploreView: View {
                 ForEach(vm.demographics, id: \.self) { demographic in
                     Button {
                         Task {
-                            await vm.filterByDemographic(demographic)
+                            await vm.applyFilter(.demographic(demographic))
                         }
                     } label: {
                         HStack {
@@ -176,7 +176,7 @@ struct ExploreView: View {
                 ForEach(vm.themes, id: \.self) { theme in
                     Button {
                         Task {
-                            await vm.filterByTheme(theme)
+                            await vm.applyFilter(.theme(theme))
                         }
                     } label: {
                         HStack {

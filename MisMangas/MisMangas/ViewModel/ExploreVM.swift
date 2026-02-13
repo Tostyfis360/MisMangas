@@ -31,6 +31,21 @@ final class ExploreVM {
     private let itemsPerPage = 20
     var canLoadMore = true
 
+    // MARK: - Filter Type
+    enum FilterType {
+        case none
+        case genre(String)
+        case demographic(String)
+        case theme(String)
+    }
+
+    private var activeFilter: FilterType {
+        if let genre = selectedGenre { return .genre(genre) }
+        if let demographic = selectedDemographic { return .demographic(demographic) }
+        if let theme = selectedTheme { return .theme(theme) }
+        return .none
+    }
+
     // MARK: - Display Mangas
     var displayMangas: [MangaDTO] {
         // Si está buscando, muestra resultados de la búsqueda
@@ -67,18 +82,8 @@ final class ExploreVM {
     func loadNextPage() async {
         guard canLoadMore, search.isEmpty else { return }
         currentPage += 1
-
         do {
-            let response: PaginatedResponse<MangaDTO>
-            if let genre = selectedGenre {
-                response = try await network.fetchMangas(byGenre: genre, page: currentPage, per: itemsPerPage)
-            } else if let demographic = selectedDemographic {
-                response = try await network.fetchMangas(byDemographic: demographic, page: currentPage, per: itemsPerPage)
-            } else if let theme = selectedTheme {
-                response = try await network.fetchMangas(byTheme: theme, page: currentPage, per: itemsPerPage)
-            } else {
-                response = try await network.fetchMangas(page: currentPage, per: itemsPerPage)
-            }
+            let response = try await fetchMangas(for: activeFilter, page: currentPage)
             mangas.append(contentsOf: response.items)
             canLoadMore = response.items.count == itemsPerPage
         } catch {
@@ -96,57 +101,41 @@ final class ExploreVM {
         }
     }
 
-    // MARK: - Filter by Genre
-    func filterByGenre(_ genre: String?) async {
-        selectedDemographic = nil
-        selectedTheme = nil
-        selectedGenre = genre
-        await reloadMangas()
-    }
-
-    // MARK: - Filter by Demographic
-    func filterByDemographic(_ demographic: String?) async {
-        selectedGenre = nil
-        selectedTheme = nil
-        selectedDemographic = demographic
-        await reloadMangas()
-    }
-
-    // MARK: - Filter by Theme
-    func filterByTheme(_ theme: String?) async {
-        selectedGenre = nil
-        selectedDemographic = nil
-        selectedTheme = theme
-        await reloadMangas()
-    }
-
-    // MARK: - Clear Filters
-    func clearFilters() async {
+    // MARK: - Apply Filter
+    func applyFilter(_ filter: FilterType) async {
         selectedGenre = nil
         selectedDemographic = nil
         selectedTheme = nil
-        await reloadMangas()
-    }
 
-    // MARK: - Reload Mangas
-    private func reloadMangas() async {
+        switch filter {
+        case .genre(let value): selectedGenre = value
+        case .demographic(let value): selectedDemographic = value
+        case .theme(let value): selectedTheme = value
+        case .none: break
+        }
+
         currentPage = 1
         mangas = []
         do {
-            let response: PaginatedResponse<MangaDTO>
-            if let genre = selectedGenre {
-                response = try await network.fetchMangas(byGenre: genre, page: currentPage, per: itemsPerPage)
-            } else if let demographic = selectedDemographic {
-                response = try await network.fetchMangas(byDemographic: demographic, page: currentPage, per: itemsPerPage)
-            } else if let theme = selectedTheme {
-                response = try await network.fetchMangas(byTheme: theme, page: currentPage, per: itemsPerPage)
-            } else {
-                response = try await network.fetchMangas(page: currentPage, per: itemsPerPage)
-            }
+            let response = try await fetchMangas(for: filter, page: currentPage)
             self.mangas = response.items
             self.canLoadMore = response.items.count == itemsPerPage
         } catch {
             print(error)
+        }
+    }
+
+    // MARK: - Fetch centralizado
+    private func fetchMangas(for filter: FilterType, page: Int) async throws -> PaginatedResponse<MangaDTO> {
+        switch filter {
+        case .genre(let genre):
+            try await network.fetchMangas(byGenre: genre, page: page, per: itemsPerPage)
+        case .demographic(let demographic):
+            try await network.fetchMangas(byDemographic: demographic, page: page, per: itemsPerPage)
+        case .theme(let theme):
+            try await network.fetchMangas(byTheme: theme, page: page, per: itemsPerPage)
+        case .none:
+            try await network.fetchMangas(page: page, per: itemsPerPage)
         }
     }
 }
