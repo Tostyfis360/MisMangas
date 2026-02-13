@@ -130,7 +130,6 @@ struct AddToCollectionSheet: View {
                 }
             }
             .scrollDismissesKeyboard(.interactively)
-            .onTapGesture { isReadingFieldFocused = false }
             .navigationTitle(isEditing ? "Editar colección" : "Añadir a colección")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {

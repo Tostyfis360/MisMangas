@@ -74,6 +74,7 @@ struct LoginView: View {
                 }
                 Spacer()
             }
+            .contentShape(Rectangle())
             .onTapGesture { focusedField = nil }
             .alert("Error", isPresented: $showError) {
                 Button("OK", role: .cancel) { }
