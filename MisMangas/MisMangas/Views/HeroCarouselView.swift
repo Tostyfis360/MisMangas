@@ -12,7 +12,6 @@ struct HeroCarouselView: View {
     let namespace: Namespace.ID
 
     @State private var currentIndex = 0
-    @State private var timer: Timer?
     private var heroHeight: CGFloat {
         isiPhone ? 600 : 700  // iPhone: 600pt , iPad: 700pt
     }
@@ -56,11 +55,16 @@ struct HeroCarouselView: View {
                 .padding(.bottom, 10)
         }
         .frame(height: heroHeight)
-        .onAppear {
-            startAutoScroll()
-        }
-        .onDisappear {
-            stopAutoScroll()
+        .task {
+            let mangaCount = min(mangas.count, 5)
+            guard mangaCount > 1 else { return }
+            while !Task.isCancelled {
+                try? await Task.sleep(for: .seconds(5))
+                guard !Task.isCancelled else { return }
+                withAnimation {
+                    currentIndex = (currentIndex + 1) % mangaCount
+                }
+            }
         }
     }
 
@@ -130,22 +134,6 @@ struct HeroCarouselView: View {
                     .animation(.easeInOut, value: currentIndex)
             }
         }
-    }
-
-    // MARK: - Auto Scroll
-    private func startAutoScroll() {
-        timer = Timer.scheduledTimer(withTimeInterval: 5.0, repeats: true) { _ in
-            Task { @MainActor in
-                withAnimation {
-                    currentIndex = (currentIndex + 1) % min(mangas.count, 5)
-                }
-            }
-        }
-    }
-
-    private func stopAutoScroll() {
-        timer?.invalidate()
-        timer = nil
     }
 }
 
