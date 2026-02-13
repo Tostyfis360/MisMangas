@@ -10,11 +10,14 @@ import SwiftUI
 struct RegisterView: View {
     @Environment(\.dismiss) private var dismiss
 
+    enum Field { case email, password, confirmPassword }
+
     @State private var email = ""
     @State private var password = ""
     @State private var confirmPassword = ""
     @State private var showError = false
     @State private var errorMessage = ""
+    @FocusState private var focusedField: Field?
     
     var body: some View {
         NavigationStack {
@@ -33,6 +36,7 @@ struct RegisterView: View {
                     // Campos de registro
                     VStack(spacing: 16) {
                         TextField("Email", text: $email)
+                            .focused($focusedField, equals: .email)
                             .textContentType(.emailAddress)
                             .keyboardType(.emailAddress)
                             .textInputAutocapitalization(.never)
@@ -41,11 +45,13 @@ struct RegisterView: View {
                             .background(.thinMaterial, in: .rect(cornerRadius: 12))
 
                         SecureField("Contraseña (mín. 8 caracteres)", text: $password)
+                            .focused($focusedField, equals: .password)
                             .textContentType(.newPassword)
                             .padding()
                             .background(.thinMaterial, in: .rect(cornerRadius: 12))
 
                         SecureField("Confirmar contraseña", text: $confirmPassword)
+                            .focused($focusedField, equals: .confirmPassword)
                             .textContentType(.newPassword)
                             .padding()
                             .background(.thinMaterial, in: .rect(cornerRadius: 12))
@@ -103,7 +109,7 @@ struct RegisterView: View {
                     Spacer()
                 }
             }
-            .dismissKeyboardOnTap()
+            .onTapGesture { focusedField = nil }
             .alert("Error", isPresented: $showError) {
                 Button("OK", role: .cancel) { }
             } message: {

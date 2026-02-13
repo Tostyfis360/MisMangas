@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct LoginView: View {
+    enum Field { case email, password }
+
     @State private var email = ""
     @State private var password = ""
     @State private var showError = false
     @State private var errorMessage = ""
     @State private var showRegister = false
+    @FocusState private var focusedField: Field?
 
     var body: some View {
         NavigationStack {
@@ -30,6 +33,7 @@ struct LoginView: View {
                 // Campos de login
                 VStack(spacing: 16) {
                     TextField("Email", text: $email)
+                        .focused($focusedField, equals: .email)
                         .textContentType(.emailAddress)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.never)
@@ -38,6 +42,7 @@ struct LoginView: View {
                         .background(.thinMaterial, in: .rect(cornerRadius: 12))
 
                     SecureField("Contraseña", text: $password)
+                        .focused($focusedField, equals: .password)
                         .textContentType(.password)
                         .padding()
                         .background(.thinMaterial, in: .rect(cornerRadius: 12))
@@ -69,7 +74,7 @@ struct LoginView: View {
                 }
                 Spacer()
             }
-            .dismissKeyboardOnTap()
+            .onTapGesture { focusedField = nil }
             .alert("Error", isPresented: $showError) {
                 Button("OK", role: .cancel) { }
             } message: {

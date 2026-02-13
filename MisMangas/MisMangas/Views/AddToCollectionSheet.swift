@@ -17,6 +17,7 @@ struct AddToCollectionSheet: View {
     @State private var volumesOwned: Int
     @State private var readingVolume: String = ""
     @State private var completeCollection: Bool = false
+    @FocusState private var isReadingFieldFocused: Bool
     // Control de errores
     @State private var showError = false
     @State private var errorMessage = ""
@@ -92,6 +93,7 @@ struct AddToCollectionSheet: View {
                         Text("Tomo leyendo")
                         Spacer()
                         TextField("Ej: 5", text: $readingVolume)
+                            .focused($isReadingFieldFocused)
                             .keyboardType(.numberPad)
                             .multilineTextAlignment(.trailing)
                             .frame(width: 80)
@@ -128,7 +130,7 @@ struct AddToCollectionSheet: View {
                 }
             }
             .scrollDismissesKeyboard(.interactively)
-            .dismissKeyboardOnTap()
+            .onTapGesture { isReadingFieldFocused = false }
             .navigationTitle(isEditing ? "Editar colección" : "Añadir a colección")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
