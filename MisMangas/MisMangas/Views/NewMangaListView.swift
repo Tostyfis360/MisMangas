@@ -8,8 +8,6 @@
 import SwiftUI
 import SwiftData
 
-@MainActor let isiPhone = UIDevice.current.userInterfaceIdiom == .phone
-
 struct NewMangaListView: View {
     @State private var vm = MangaListVM()
     @Namespace private var namespace

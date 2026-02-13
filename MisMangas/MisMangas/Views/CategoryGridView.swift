@@ -11,11 +11,14 @@ struct CategoryGridView: View {
     let category: String
     let filterType: CategoryFilterType
 
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @State private var vm = CategoryGridVM()
     @Namespace private var namespace
 
     // Grid columns
-    private let gridColumns = [GridItem(.adaptive(minimum: isiPhone ? 85 : 140), spacing: 12)]
+    private var gridColumns: [GridItem] {
+        [GridItem(.adaptive(minimum: sizeClass == .compact ? 85 : 140), spacing: 12)]
+    }
 
     var body: some View {
         ScrollView {

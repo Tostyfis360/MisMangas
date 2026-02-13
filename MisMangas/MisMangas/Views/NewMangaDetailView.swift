@@ -13,6 +13,7 @@ struct NewMangaDetailView: View {
     let namespace: Namespace.ID
 
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @Query private var userCollection: [UserMangaCollection]
 
     @State private var showingAddSheet = false
@@ -20,7 +21,7 @@ struct NewMangaDetailView: View {
 
     // Altura del hero según dispositivo
     private var heroHeight: CGFloat {
-        isiPhone ? 550 : 850  // iPhone: 550pt, iPad: 850pt
+        sizeClass == .compact ? 550 : 850
     }
 
     private var isInCollection: Bool {

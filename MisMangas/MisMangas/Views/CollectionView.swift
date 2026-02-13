@@ -20,10 +20,13 @@ struct CollectionView: View {
     // Manager para sincronizar
     @State private var syncManager = SyncManager()
 
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @State private var showLogoutConfirmation = false
 
     // Grid para iPad
-    private let gridColumns = [GridItem(.adaptive(minimum: isiPhone ? 300 : 280), spacing: 16)]
+    private var gridColumns: [GridItem] {
+        [GridItem(.adaptive(minimum: sizeClass == .compact ? 300 : 280), spacing: 16)]
+    }
 
     // Info del usuario
     private var userEmail: String {

@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct ExploreView: View {
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @State private var vm = ExploreVM()
     @Namespace private var namespace
 
     // Grid columns
-    private let gridColumns = [
-        GridItem(.adaptive(minimum: isiPhone ? 85 : 140), spacing: 16)]
+    private var gridColumns: [GridItem] {
+        [GridItem(.adaptive(minimum: sizeClass == .compact ? 85 : 140), spacing: 16)]
+    }
 
     var body: some View {
         NavigationStack {

@@ -11,9 +11,10 @@ struct HeroCarouselView: View {
     let mangas: [MangaDTO]
     let namespace: Namespace.ID
 
+    @Environment(\.horizontalSizeClass) private var sizeClass
     @State private var currentIndex = 0
     private var heroHeight: CGFloat {
-        isiPhone ? 600 : 700  // iPhone: 600pt , iPad: 700pt
+        sizeClass == .compact ? 600 : 700
     }
 
     var body: some View {
