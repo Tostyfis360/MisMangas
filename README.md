@@ -6,6 +6,8 @@ Aplicación iOS nativa para gestionar tu colección personal de mangas.
 ![iOS](https://img.shields.io/badge/iOS-26.0+-blue.svg)
 ![SwiftUI](https://img.shields.io/badge/SwiftUI-Native-green.svg)
 
+<img width="660" height="1434" alt="IMG_0420" src="https://github.com/user-attachments/assets/6b83462b-a4b0-42f8-808f-cf80336cd891" />
+
 ## 📖 Descripción
 
 App que permite explorar más de 64.000 mangas, filtrar por género/demografía/temática, guardar tu colección personal y hacer seguimiento de tu progreso de lectura.
@@ -32,8 +34,8 @@ App que permite explorar más de 64.000 mangas, filtrar por género/demografía/
 
 ```
 MisMangas/
-├── App/
-├── System/
+├── Helppers/
+├── Managers/
 ├── Network/
 ├── Model/
 ├── DataModel/
@@ -71,15 +73,6 @@ Strict Concurrency Checking: Complete
 Default Actor Isolation: MainActor
 Approachable Concurrency: Yes
 ```
-
-## 📋 Roadmap
-
-- [x] Setup del proyecto
-- [ ] Network layer
-- [ ] Lista de mangas
-- [ ] Detalle de manga
-- [ ] Persistencia local
-- [ ] Colección del usuario
 
 ## 👨‍💻 Autor
 
