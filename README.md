@@ -76,7 +76,7 @@ Approachable Concurrency: Yes
 
 ## 👨‍💻 Autor
 
-**Juan** - Desarrollador iOS Junior  
+**Juan** - Desarrollador iOS
 Swift Developer Program 2025
 
 ## 📄 Licencia
